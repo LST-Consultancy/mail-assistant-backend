@@ -1,0 +1,58 @@
+node_modules/
+dist/
+.env
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Credentials and service account files
+credentials.json
+service-account*.json
+secrets/
+.secrets/
+
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Local configuration
+.DS_Store
+.vscode/
+.idea/
+
+# Temporary and backup files
+*.bak
+*.tmp
+*.swp
+*.orig
+
+# Database dumps and backups
+*.sql
+*.dump
+*.backup
+
+# Private SSH keys
+id_rsa
+id_ed25519
