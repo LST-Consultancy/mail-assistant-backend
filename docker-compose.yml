@@ -1,0 +1,23 @@
+# Runs behind the VPS's existing Traefik: no host ports, joins Traefik's network, routed by labels.
+# Values come from .env in this folder (see .env.example, "Deployment" section).
+services:
+  api:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    deploy:
+      resources:
+        limits: { cpus: "1", memory: 512M }
+    networks: [proxy]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:?set TRAEFIK_NETWORK in .env}
+      - traefik.http.routers.mail-assistant-api.rule=Host(`${API_HOST:?set API_HOST in .env}`)
+      - traefik.http.routers.mail-assistant-api.entrypoints=${TRAEFIK_ENTRYPOINT:?set TRAEFIK_ENTRYPOINT in .env}
+      - traefik.http.routers.mail-assistant-api.tls.certresolver=${TRAEFIK_CERTRESOLVER:?set TRAEFIK_CERTRESOLVER in .env}
+      - traefik.http.services.mail-assistant-api.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true
+    name: ${TRAEFIK_NETWORK}
